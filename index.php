@@ -5,8 +5,8 @@ spl_autoload_register(function(string $name) {
 });
 
 $route = $_GET['route'] ?? '';
-$pattern = '~^user/(.*)$~';
 
+$pattern = '~^user/(.*)$~';
 preg_match($pattern, $route, $matches);
 
 if (!empty($matches)) {
