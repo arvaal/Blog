@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '~^user/(.*)$~' => ['Controllers\User'],
-    '~^$~' => ['Controlers\Home']
+    '~^user/(.*)$~' => ['Controllers\Home', 'welcome'],
+    '~^$~' => ['Controllers\Home', 'home']
 ];
 

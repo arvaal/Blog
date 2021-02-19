@@ -5,25 +5,30 @@ spl_autoload_register(function(string $name) {
 });
 
 $route = $_GET['route'] ?? '';
+$routes = require '/var/www/html/Blog/Config/Routes.php';
 
-$pattern = '~^user/(.*)$~';
-preg_match($pattern, $route, $matches);
+$isRoute = false;
+foreach ($routes as $pattern => $routeController) {
 
-if (!empty($matches)) {
-    $controller = new Controllers\Home();
-    $controller->welcome($matches[1]);
+    preg_match($pattern, $route, $matches);
+
+    if (!empty($matches)) {
+        $isRoute = true;
+        break;
+    }
+}
+
+if (!$isRoute) {
+    echo 'Страница отсутствует';
     return;
 }
 
-$pattern = '~^$~';
-preg_match($pattern, $route, $matches);
+unset($matches[0]);
 
-if (!empty($matches)) {
-    $controller = new Controllers\Home();
-    $controller->home();
-    return;
-}
+$controllerName = $routeController[0];
+$controllerAction = $routeController[1];
 
-echo 'Страница отсутствует';
+$controller = new $controllerName();
+$controller->$controllerAction(...$matches);
 
 var_dump($matches);

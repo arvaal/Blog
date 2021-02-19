@@ -7,7 +7,7 @@ class Home {
     private $name;
 
     public function home() {
-        echo 'Это главная страница';
+        include '/var/www/html/Blog/Views/Default/Home/Home.tpl';
     }
 
     public function welcome($name) {
