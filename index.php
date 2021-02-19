@@ -1,11 +1,11 @@
 <?php
-
+require_once '/var/www/html/Blog/Config/Settings.php';
 spl_autoload_register(function(string $name) {
-    require_once '/var/www/html/Blog/' . str_replace('\\', '/', $name) . '.php';
+    require_once DIR_APP . str_replace('\\', '/', $name) . '.php';
 });
 
 $route = $_GET['route'] ?? '';
-$routes = require '/var/www/html/Blog/Config/Routes.php';
+$routes = require DIR_APP . 'Config/Routes.php';
 
 $isRoute = false;
 foreach ($routes as $pattern => $routeController) {
@@ -30,5 +30,3 @@ $controllerAction = $routeController[1];
 
 $controller = new $controllerName();
 $controller->$controllerAction(...$matches);
-
-var_dump($matches);
